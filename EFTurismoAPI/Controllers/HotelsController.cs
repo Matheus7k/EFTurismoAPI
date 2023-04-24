@@ -29,7 +29,7 @@ namespace EFTurismoAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.Hotel.Include(h => h.Address).ToListAsync();
+            return await _context.Hotel.Include(h => h.Address.City).ToListAsync();
         }
 
         // GET: api/Hotels/5
@@ -40,7 +40,7 @@ namespace EFTurismoAPI.Controllers
           {
               return NotFound();
           }
-            var hotel = await _context.Hotel.Include(h => h.Address).Where(h => h.Id == id).FirstAsync();
+            var hotel = await _context.Hotel.Include(h => h.Address.City).Where(h => h.Id == id).FirstAsync();
             
             if (hotel == null)
             {

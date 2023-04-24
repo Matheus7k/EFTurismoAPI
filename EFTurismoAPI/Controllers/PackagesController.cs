@@ -29,7 +29,9 @@ namespace EFTurismoAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.Package.Include(p => p.Hotel).Include(p => p.Ticket).Include(p => p.Client).ToListAsync();
+            return await _context.Package.Include(p => p.Hotel.Address.City).Include(p => p.Ticket.Origin.City).Include(p => p.Ticket.Destination.City).Include(p => p.Ticket.Client.Address.City)
+                .Include(p => p.Client.Address.City)
+                .ToListAsync();
         }
 
         // GET: api/Packages/5
@@ -40,7 +42,9 @@ namespace EFTurismoAPI.Controllers
           {
               return NotFound();
           }
-            var package = await _context.Package.Include(p => p.Hotel).Include(p => p.Ticket).Include(p => p.Client).Where(p => p.Id == id).FirstAsync();
+            var package = await _context.Package.Include(p => p.Hotel.Address.City).Include(p => p.Ticket.Origin.City).Include(p => p.Ticket.Destination.City).Include(p => p.Ticket.Client.Address.City)
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
 
             if (package == null)
             {

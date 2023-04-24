@@ -29,7 +29,7 @@ namespace EFTurismoAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.Ticket.Include(t => t.Origin).Include(t => t.Destination).Include(t => t.Client).ToListAsync();
+            return await _context.Ticket.Include(t => t.Origin.City).Include(t => t.Destination.City).Include(t => t.Client.Address.City).ToListAsync();
         }
 
         // GET: api/Tickets/5
@@ -40,7 +40,7 @@ namespace EFTurismoAPI.Controllers
           {
               return NotFound();
           }
-            var ticket = await _context.Ticket.Include(t => t.Origin).Include(t => t.Destination).Include(t => t.Client).Where(t => t.Id == id).FirstAsync();
+            var ticket = await _context.Ticket.Include(t => t.Origin.City).Include(t => t.Destination.City).Include(t => t.Client.Address.City).Where(t => t.Id == id).FirstOrDefaultAsync();
 
             if (ticket == null)
             {
